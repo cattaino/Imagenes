@@ -2,7 +2,7 @@
 URL="$1"
 SUM="$2"
 HTPS="https://*"
-if [[ ! $URL =~ $HTPS || ! $SUM =~ $HTPS || ! $# -eq 2 ]]; then
+if [[ ! $URL =~ $HTPS || ! $# -eq 2 ]]; then
 echo "Datos ingresados incorrectamente"
 exit 1
 fi
@@ -14,4 +14,10 @@ cotejar(){ # Recibe la suma ingresada por el usuario y la del archivo .zip
 [ ! $1 =~ $2 ] && exit 2
 }
 SUMA=$"sha256sum $URL"
-cotejar "$SUM" "$SUMA" && descargar "$URL"
+# No aplicar sha256sum a $URL sino al archivo una vez descargado
+#cotejar "$SUM" "$SUMA" && descargar "$URL"
+if cotejar "$SUM" "$SUMA"; then
+descargar "$URL"
+else
+echo "Suma de verificacion incorrecta"
+fi
