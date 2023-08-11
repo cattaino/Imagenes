@@ -23,11 +23,11 @@ nombre_archivo(){ # Recibe la URL de un archivo y devuelve su nombre
 echo $1 | tr "/" "\n" | tail -n 1
 }
 descargar "$URL"
-IMG=nombre_archivo "$URL"
+IMG="nombre_archivo $URL"
 # (linea anterior) https://github.com/cattaino/Imagenes
 # /blob/imagenes/cattaino.jpg: No such file or directory
 # (linea siguiente) command not found
-SUMA=obtener_suma "$IMG"
+SUMA="obtener_suma $IMG"
 if cotejar "$SUM" "$SUMA"; then
 echo "Operacion terminada correctamente"
 else
